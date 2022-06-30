@@ -19,17 +19,17 @@
     - name: Copy go folder to server.
       copy: "remote_src=yes src=/tmp/go dest=/usr/local"
 
-    - name: modify .bashrc
-      become_user: user
-      blockinfile:
-        dest: ~/.bashrc
-        block: |
-          export GOPATH={{ go_apps_location }}/src/example-go-api
-          export GOROOT={{ go_apps_location }}
-          export GOBIN=/usr/bin
-          export PATH=$GOBIN:$PATH:/usr/local/go/bin
-        insertafter: EOF
-        create: yes
+ #   - name: modify .bashrc
+  #    become_user: user
+   #   blockinfile:
+    #    dest: ~/.bashrc
+     #   block: |
+      #    export GOPATH={{ go_apps_location }}
+       #   export GOROOT={{ go_apps_location }}
+       #   export GOBIN=/usr/bin
+       #   export PATH=$GOBIN:$PATH:/usr/local/go/bin
+       # insertafter: EOF
+       # create: yes
  #   - name: Source the ~/.bashrc file
   #    become_user: user
    #   shell: source ~/.bashrc
@@ -42,4 +42,5 @@
 
     - name: Download Dependencies
       command: go get {{ go_apps_location }}/src/example-go-api
-
+    - name: Run the go app
+      command: go run {{ go_apps_location }}/src/example-go-api/main.go
